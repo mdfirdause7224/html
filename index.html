@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Repeated Letters Counter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input {
+            margin-right: 10px;
+        }
+        #results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Repeated Letters Counter</h1>
+    <input type="text" id="nameInput" placeholder="Enter a name">
+    <button onclick="repeatedLetters()">Count Repeated Letters</button>
+    <div id="results"></div>
+
+    <script>
+        function repeatedLetters() {
+            const inputElement = document.getElementById('nameInput');
+            const name = inputElement.value;
+            const len = name.length;
+            const resultsElement = document.getElementById('results');
+            resultsElement.innerHTML = ''; // Clear previous results
+
+            if (len === 0) {
+                resultsElement.innerHTML = '<p>Please enter a name.</p>';
+                return;
+            }
+
+            const sortedName = name.split('').sort().join('');
+            let i = 0;
+
+            while (i < len) {
+                let count = 1;
+                while (i < len - 1 && sortedName[i] === sortedName[i + 1]) {
+                    count++;
+                    i++;
+                }
+                if (count > 1) {
+                    const result = document.createElement('p');
+                    result.textContent = `${sortedName[i]}: ${count} times`;
+                    resultsElement.appendChild(result);
+                }
+                i++;
+            }
+
+            if (resultsElement.innerHTML === '') {
+                resultsElement.innerHTML = '<p>No repeated letters found.</p>';
+            }
+        }
+    </script>
+</body>
+</html>
